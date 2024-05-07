@@ -1,5 +1,5 @@
 
-# Bidrectional_chat
+# Bidirectional_chat
 
 This project introduces a real-time chat application powered by Centrifugo, a cutting-edge tool for instantaneous messaging. With Centrifugo, users can exchange messages in real-time, fostering seamless communication.
 
