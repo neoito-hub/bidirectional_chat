@@ -1,0 +1,20 @@
+{
+  "blockId": "2Ngs9kZWHeQZTY1OjWFDM",
+  "name": "chat_list",
+  "type": "function",
+  "source": {
+    "https": null,
+    "ssh": null,
+    "branch": "block_chat_list"
+  },
+  "parentBlockIDs": [
+    "Q8-EdHgFG-NaEW3dTteHi"
+  ],
+  "repoType": "mono",
+  "language": "nodejs",
+  "supportedAppblockVersions": [
+    "1.0.0"
+  ],
+  "isPublic": false,
+  "start": "node index.js"
+}

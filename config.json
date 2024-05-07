@@ -1,0 +1,12 @@
+
+{
+  "token_hmac_secret_key": "<YOUR KEY>",
+  "admin": true,
+  "admin_password": "<YOUR KEY>",
+  "admin_secret": "<YOUR KEY>",
+  "api_key": "<YOUR KEY>",
+  "allowed_origins": "<YOUR URL>",
+  "allow_subscribe_for_client": true,
+  "swagger":true
+}
+ 

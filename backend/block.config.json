@@ -1,0 +1,39 @@
+{
+  "name": "bidirectional_chat",
+  "type": "package",
+  "blockId": "Q8-EdHgFG-NaEW3dTteHi",
+  "source": {
+    "https": null,
+    "ssh": null,
+    "branch": "block_bidirectional_chat"
+  },
+  "parentBlockIDs": [],
+  "isPublic": false,
+  "supportedAppblockVersions": [
+    "1.0.0"
+  ],
+  "repoType": "mono",
+  "dependencies": {
+    "send_message": {
+      "directory": "send_message"
+    },
+    "shared": {
+      "directory": "shared"
+    },
+    "get_token": {
+      "directory": "get_token"
+    },
+    "chat_list": {
+      "directory": "chat_list"
+    },
+    "chat_history": {
+      "directory": "chat_history"
+    },
+    "add_contact": {
+      "directory": "add_contact"
+    },
+    "list_contact": {
+      "directory": "list_contact"
+    }
+  }
+}
