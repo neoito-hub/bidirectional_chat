@@ -8,12 +8,12 @@ const handler = async (event) => {
 
   if (healthCheck(req, res)) return
 
-  // const userInfo = await authenticateUser(req)
+  const userInfo = await authenticateUser(req)
 
-  // if (userInfo.error) {
-  //   sendResponse(res, 400, { success: false, msg: userInfo.error })
-  //   return
-  // }
+  if (userInfo.error) {
+    sendResponse(res, 400, { success: false, msg: userInfo.error })
+    return
+  }
 
   const reqBody: RequesBody = await getBody(req)
 

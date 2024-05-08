@@ -1,6 +1,6 @@
 import axios from 'axios';
 const publishMessage = async (channels, data) => {
-  const API_KEY = process.env.BB_BIDIRECTIONAL_CHAT_CENTRIFUGO_API_KEY; // Replace '<YOUR_API_KEY>' with your actual API key
+  const API_KEY = process.env.BB_BIDIRECTIONAL_CHAT_CENTRIFUGO_API_KEY;
   const endpoint = process.env.BB_BIDIRECTIONAL_CHAT_CENTRIFUGO_URL;
   const requestData = {
     channels: channels,

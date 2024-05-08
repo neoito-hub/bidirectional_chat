@@ -13,14 +13,14 @@ const handler = async event => {
     validateBody
   } = await shared.getShared();
   if (healthCheck(req, res)) return;
-
-  // const userInfo = await authenticateUser(req)
-
-  // if (userInfo.error) {
-  //   sendResponse(res, 400, { success: false, msg: userInfo.error })
-  //   return
-  // }
-
+  const userInfo = await authenticateUser(req);
+  if (userInfo.error) {
+    sendResponse(res, 400, {
+      success: false,
+      msg: userInfo.error
+    });
+    return;
+  }
   const reqBody = await getBody(req);
   await validateBody(reqBody, 'chatHistorySchema');
   const chat_id = reqBody.chat_id;
