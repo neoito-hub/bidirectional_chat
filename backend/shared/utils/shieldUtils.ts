@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { Request } from 'express'
 
-const shieldUrl = process.env.BB_CHAT_APP_SHIELD_URL as string
+const shieldUrl = process.env.BB_BIDIRECTIONAL_CHAT_SHIELD_URL as string
 
 /**
  * Function that gets user details from shield.
@@ -16,8 +16,8 @@ export const callShieldServer = async (req: Request, url: string): Promise<objec
       Accept: 'application/json',
       Authorization: authHeader,
       'Content-Type': 'application/json',
-      'Client-Id': process.env.BB_CHAT_APP_CLIENT_ID as string,
-      'Client-Secret': process.env.BB_CHAT_APP_CLIENT_SECRET as string,
+      'Client-Id': process.env.BB_BIDIRECTIONAL_CHAT_CLIENT_ID as string,
+      'Client-Secret': process.env.BB_BIDIRECTIONAL_CHAT_CLIENT_SECRET as string,
     }
 
     const response: AxiosResponse = await axios.post(url, {}, { headers })

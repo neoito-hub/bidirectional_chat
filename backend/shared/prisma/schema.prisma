@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("BB_CHAT_APP_DATABASE_URL")
+  url      = env("BB_BIDIRECTIONAL_CHAT_DATABASE_URL")
 }
 
 model contact {

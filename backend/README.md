@@ -1,1 +1,1 @@
-# chat_app
+# bidirectional_chat

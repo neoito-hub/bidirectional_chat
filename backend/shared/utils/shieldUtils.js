@@ -1,5 +1,5 @@
 import axios from 'axios';
-const shieldUrl = process.env.BB_CHAT_APP_SHIELD_URL;
+const shieldUrl = process.env.BB_BIDIRECTIONAL_CHAT_SHIELD_URL;
 
 /**
  * Function that gets user details from shield.
@@ -14,8 +14,8 @@ export const callShieldServer = async (req, url) => {
       Accept: 'application/json',
       Authorization: authHeader,
       'Content-Type': 'application/json',
-      'Client-Id': process.env.BB_CHAT_APP_CLIENT_ID,
-      'Client-Secret': process.env.BB_CHAT_APP_CLIENT_SECRET
+      'Client-Id': process.env.BB_BIDIRECTIONAL_CHAT_CLIENT_ID,
+      'Client-Secret': process.env.BB_BIDIRECTIONAL_CHAT_CLIENT_SECRET
     };
     const response = await axios.post(url, {}, {
       headers

@@ -2,8 +2,8 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 
 const publishMessage = async (channels: string[], data: Record<string, any>) => {
   
-  const API_KEY: string =  process.env.BB_CHAT_APP_CENTRIFUGO_API_KEY // Replace '<YOUR_API_KEY>' with your actual API key
-  const endpoint: string = process.env.BB_CHAT_APP_CENTRIFUGO_URL
+  const API_KEY: string =  process.env.BB_BIDIRECTIONAL_CHAT_CENTRIFUGO_API_KEY // Replace '<YOUR_API_KEY>' with your actual API key
+  const endpoint: string = process.env.BB_BIDIRECTIONAL_CHAT_CENTRIFUGO_URL
 
   const requestData = {
     channels: channels,
