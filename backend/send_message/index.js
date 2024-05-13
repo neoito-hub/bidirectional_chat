@@ -30,24 +30,9 @@ const handler = async event => {
       this.messageSender.sendMessage(content);
     }
   }
-  class MetaCloudWhatsAppSender {
-    sendMessage(content) {
-      const {
-        message,
-        phoneNumber
-      } = content;
-      console.log('meta cloud api');
-    }
-  }
   const reqBody = await getBody(req);
   let messageSender;
-  if (reqBody.sender === 'centrifugo') {
-    messageSender = new CentrifugoMessageSender();
-  } else if (reqBody.sender === 'metacloud-whatsapp') {
-    messageSender = new MetaCloudWhatsAppSender();
-  } else {
-    throw new Error('Invalid sender type');
-  }
+  messageSender = new CentrifugoMessageSender();
   const chatService = new ChatService(messageSender);
   chatService.sendMessage(reqBody);
   return sendResponse(res, 200, {

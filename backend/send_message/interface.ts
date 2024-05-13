@@ -1,8 +1,7 @@
 export interface MessageContent {
   message: string
-  phoneNumber?: string
-  senderId?:string
-  receiverId?:string
+  senderId:string
+  receiverId:string
 }
 
 export interface MessageSender {

@@ -36,7 +36,6 @@ const getUser = (req: Request): Promise<object> => {
   return new Promise(async (resolve, reject) => {
     try {
       const userDetails: object = await callShieldServer(req, `${shieldUrl}/get-user`)
-      console.log('userDetails', userDetails)
       resolve(userDetails)
     } catch (error) {
       reject(error.message || error)
