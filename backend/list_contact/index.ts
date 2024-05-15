@@ -20,17 +20,33 @@ const handler = async (event) => {
 
   try {
     const offset = (reqBody.page_number - 1) * reqBody.limit
-    const data = await prisma.contact.findMany({
-      where: {
-        OR: [{ name: { contains: reqBody.search } }],
-      },
-      skip: offset,
-      take: reqBody.limit,
-    })
+    const limit = reqBody.limit
+    const searchValue = `%${reqBody.search}%`
+
+    const contactsCount = await prisma.$queryRaw`SELECT COUNT(*) as total FROM (
+      SELECT 
+       c.name  
+      FROM contact as c
+      WHERE c.name ILIKE ${searchValue}
+  ) as subquery;
+  `
+
+    const contactsInfo = await prisma.$queryRaw`
+      SELECT 
+      *
+      FROM contact as c
+      WHERE c.name ILIKE ${searchValue}
+      LIMIT ${limit} 
+      OFFSET ${offset};`
+
+    let result = {
+      contacts: contactsInfo,
+      count: contactsCount[0].total,
+    }
 
     return sendResponse(res, 200, {
-      contact: data,
       message: 'Contacts retirved successfully',
+      data: result,
     })
   } catch (error) {
     throw error
