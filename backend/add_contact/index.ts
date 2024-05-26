@@ -1,8 +1,9 @@
 import { shared } from '@appblocks/node-sdk'
 import { nanoid } from 'nanoid'
 import { RequesBody } from './interface.ts'
+import { Request, Response } from 'express'
 
-const handler = async (event) => {
+const handler = async (event: { req: Request; res: Response }): Promise<void> => {
   const { req, res } = event
 
   const { prisma, healthCheck, getBody, sendResponse, authenticateUser, validateBody } = await shared.getShared()
@@ -29,13 +30,13 @@ const handler = async (event) => {
       return
     }
 
-    if (reqBody.phone_number && reqBody.phone_number !== "") {
+    if (reqBody.phone_number && reqBody.phone_number !== '') {
       const existingContact = await prisma.contact.findUnique({
         where: {
           id: reqBody.id,
         },
       })
-  
+
       if (existingContact) {
         sendResponse(res, 409, { success: false, msg: 'shield user already exists' })
         return
@@ -48,11 +49,21 @@ const handler = async (event) => {
       },
     })
 
+    // const existingPhoneNumber = await prisma.contact.findUnique({
+    //   where: {
+    //     email: reqBody.phone_number,
+    //   },
+    // })
+    // if (existingPhoneNumber) {
+    //   sendResponse(res, 409, { success: false, msg: 'shield user already exists' })
+    //   return
+    // }
+
     if (existingEmail) {
       sendResponse(res, 409, { success: false, msg: 'shield user already exists' })
       return
-    }    
-    
+    }
+
     data = [{ channel_id: channelId, status: 'active', ...reqBody }]
   } else {
     data = [

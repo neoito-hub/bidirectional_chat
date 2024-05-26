@@ -1,7 +1,8 @@
 import { shared } from '@appblocks/node-sdk'
 import { RequesBody } from './interface.ts'
+import { Request, Response } from 'express';
 
-const handler = async (event) => {
+const handler = async (event: { req: Request; res: Response }): Promise<void> => {
   const { req, res } = event
 
   const { prisma, healthCheck, getBody, sendResponse, authenticateUser, validateBody } = await shared.getShared()

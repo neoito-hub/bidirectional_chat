@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
-
+import { Request, Response } from 'express'
 import { shared } from '@appblocks/node-sdk'
 
-const handler = async (event) => {
+const handler = async (event: { req: Request; res: Response }): Promise<void> => {
   const { req, res } = event
 
   const { healthCheck, sendResponse, authenticateUser } = await shared.getShared()

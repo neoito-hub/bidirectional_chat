@@ -27,6 +27,12 @@ const handler = async event => {
   const pageNumber = reqBody?.page_number;
   const limit = reqBody?.limit;
   const offset = (pageNumber - 1) * limit;
+  const mesageDetailsCountFetchQuery = `
+  SELECT COUNT(*)
+  FROM individual_chat_detail as icd
+  WHERE icd.chat_id =$1;
+`;
+  const messagesCount = await prisma.$queryRawUnsafe(mesageDetailsCountFetchQuery, chat_id);
   const mesageDetailsFetchQuery = `
   SELECT *
   FROM individual_chat_detail as icd
@@ -42,8 +48,9 @@ const handler = async event => {
     }
   });
   return sendResponse(res, 200, {
-    chats: messages,
-    message: 'Chat list retrived successfully'
+    message: 'Chat list retrived successfully',
+    data: messages,
+    count: messagesCount[0].count
   });
 };
 export default handler;
