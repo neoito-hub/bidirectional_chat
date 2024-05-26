@@ -47,7 +47,7 @@ services:
     ports:
       - 8000:8000
     ulimits:
-      nofile: 
+      nofile:
         soft: 65535
         hard: 65535
   shield-go-app:
@@ -64,7 +64,7 @@ services:
         condition: service_healthy
     command: bash -c "go run ./migrator/main.go && go run ./main.go ./packages.go"
   backend-app:
-    build: 
+    build:
       context: ./backend
       # target: dev
       dockerfile: Dockerfile
@@ -80,3 +80,11 @@ services:
       redis:
         condition: service_healthy
     command: bash -c "bb start && npx prisma db push --schema=./shared/prisma/schema.prisma &&  npx prisma db seed --schema=./shared/prisma/schema.prisma && bb log"
+  # frontend-app:
+  #   build:
+  #     context: ./frontend
+  #     # target: dev
+  #     dockerfile: Dockerfile
+  #   container_name: frontend_container
+  #   ports:
+  #     - "3010:80"

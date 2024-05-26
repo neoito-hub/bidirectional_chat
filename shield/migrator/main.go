@@ -301,7 +301,7 @@ func Migrate(db *gorm.DB) {
 		INSERT INTO public.shield_apps(
 			app_id, client_id, client_secret, app_name, app_sname, description, app_url, redirect_url, app_type, created_at, updated_at, deleted_at, owner_space_id, id)
 			VALUES (nanoid(),'test-app-1','243db79e075ebec5b698783b77784442787cb10a60df60bcdb8c99d58bdaca794fff01d7a337b5093f7492b5b028832bc8115a67f7e4b379115b5e059c798485','test-app',
-					'test-app','Test App ', 'http://localhost:3000','{http://localhost:3000}',2,now(),null,null,null,null) on conflict do nothing;
+					'test-app','Test App ', 'http://localhost:3000','{http://localhost:3010}',2,now(),null,null,null,null) on conflict do nothing;
 		`)
 
 	if newApp.Error != nil {
