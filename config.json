@@ -1,12 +1,10 @@
-
 {
-  "token_hmac_secret_key": "<YOUR KEY>",
+  "token_hmac_secret_key": "73c2d2f9-78ea-45d9-a9ed-692b4ca2f4ed",
   "admin": true,
-  "admin_password": "<YOUR KEY>",
-  "admin_secret": "<YOUR KEY>",
-  "api_key": "<YOUR KEY>",
-  "allowed_origins": "<YOUR URL>",
+  "admin_password": "cd1e4f84-4f04-4f20-a213-d16bb4f66e22",
+  "admin_secret": "09b7784f-f96a-48d1-bd7c-3c2f141bc0ba",
+  "api_key": "a451db29-98d9-44c8-87ed-f08815a03c10",
+  "allowed_origins": ["http://localhost:3010"],
   "allow_subscribe_for_client": true,
-  "swagger":true
+  "swagger": true
 }
- 

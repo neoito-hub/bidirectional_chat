@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { debounce } from 'lodash'
 import apiHelper from '../common/apiHelper'
-// import Pagination from '../common/pagination'
+import Pagination from '../common/pagination'
 import { useContextStore } from '../../context-store'
 
 const listChatUrl = 'chat_list'
@@ -24,14 +24,14 @@ const ChatContactList = ({
   const [loading, setLoading] = useState(false)
   const [flag, setFlag] = useState(false)
   const [searchText, setSearchText] = useState('')
-  // const [totalCount, setTotalCount] = useState(null)
+  const [totalCount, setTotalCount] = useState(null)
   const [selectedPage, setSelectedPage] = useState(1)
 
   const filterDataStructure = () => ({
     user_id: userDetails?.user_id,
     limit: page_limit,
     page_number: selectedPage,
-    // search: searchText,
+    search: searchText,
   })
 
   useEffect(async () => {
@@ -42,16 +42,15 @@ const ChatContactList = ({
       subUrl: listChatUrl,
       value: filterDataStructure(),
     })
-    console.log(res)
     res && updateChatList(res?.chats || [])
-    // res && setTotalCount(res?.count || 0)
+    res && setTotalCount(res?.count || 0)
     setLoading(false)
   }, [flag, searchText, flag1])
 
   const handler = useCallback(
     debounce((text) => {
       updateChatList(null)
-      // setTotalCount(0)
+      setTotalCount(0)
       setSearchText(text)
     }, 1000),
     [],
@@ -61,11 +60,11 @@ const ChatContactList = ({
     handler(e.target.value)
   }
 
-  // const handlePageChange = (event) => {
-  //   const { selected } = event
-  //   setSelectedPage(selected + 1)
-  //   setFlag((flg) => !flg)
-  // }
+  const handlePageChange = (event) => {
+    const { selected } = event
+    setSelectedPage(selected + 1)
+    setFlag((flg) => !flg)
+  }
 
   return (
     <div className="flex-none w-1/4 border-r border-gray-200">
@@ -119,7 +118,7 @@ const ChatContactList = ({
           </button>
         </div>
       </div>
-      {/* {totalCount > page_limit && (
+      {totalCount > page_limit && (
         <Pagination
           Padding={0}
           marginTop={1}
@@ -127,7 +126,7 @@ const ChatContactList = ({
           handlePageChange={handlePageChange}
           selected={selectedPage - 1}
         />
-      )} */}
+      )}
     </div>
   )
 }

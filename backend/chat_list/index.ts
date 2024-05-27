@@ -99,9 +99,11 @@ const handler = async (event: { req: Request; res: Response }): Promise<void> =>
   })
 
   return sendResponse(res, 200, {
-    message: 'Chat list retrived successfully',
-    data: chatDetailsWithChatName,
-    count: chatDetailsCount[0].count,
+    data: {
+      message: 'Chat list retrived successfully',
+      count: chatDetailsCount[0].count,
+      chats:chatDetailsWithChatName
+    },
   })
 }
 

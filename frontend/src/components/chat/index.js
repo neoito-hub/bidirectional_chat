@@ -10,9 +10,9 @@ const Chat = () => {
   const [chats, setChats] = useState(null)
   const [flag, setFlag] = useState(false)
 
-  const handleContactChange = (contact) => {
+  const handleContactChange = (chatDetails) => {
     setShowChat(true)
-    setSelectedChat(contact)
+    setSelectedChat(chatDetails)
   }
 
   const onAddNewChatSuccess = () => {

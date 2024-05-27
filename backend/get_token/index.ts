@@ -23,10 +23,14 @@ const handler = async (event: { req: Request; res: Response }): Promise<void> =>
 
   const token: string = jwt.sign({ sub: userID }, secretKey, { expiresIn })
 
-  return sendResponse(res, 200, {
-    token: token,
-    message: 'Token created successfully',
-  })
+  const responseData = {
+    data: {
+      token: token,
+      message: 'Token created successfully',
+    }
+  }
+
+  return sendResponse(res, 200, responseData)
 }
 
 export default handler
