@@ -84,29 +84,30 @@ const ChatContainer = ({ removeSelection, selectedChat }) => {
     }
   }, [selectedChat])
 
-  // const fetchToken = async () => {
-  //   try {
-  //     const res = await apiHelper({
-  //       baseUrl: process.env.BLOCK_ENV_URL_API_BASE_URL,
-  //       subUrl: getTokenUrl,
-  //       type: 'get',
-  //     })
-  //     return res?.token
-  //   } catch (error) {
-  //     console.error('Failed to fetch chat history:', error)
-  //   }
-  // }
+  const fetchToken = async () => {
+    try {
+      const res = await apiHelper({
+        baseUrl: process.env.BLOCK_ENV_URL_API_BASE_URL,
+        subUrl: getTokenUrl,
+        type: 'get',
+      })
+      return res?.token
+    } catch (error) {
+      console.error('Failed to fetch chat history:', error)
+    }
+  }
 
   useEffect(async () => {
     // Connect to Centrifugo server
-    // const token = await fetchToken()
+    const token = await fetchToken()
     const client = new Centrifuge(process.env.WS_ENDPOINT, {
       debug: true,
-      token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM3MjIiLCJleHAiOjE3MTc0MDEyNTYsImlhdCI6MTcxNjc5NjQ1Nn0.1Qlxq-9UuKD59LtmYxBjMzet15WMS1oS8uJtVCHQsfU',
+      token,
     })
     setCentrifugeClient(client)
     client.connect()
+
+    console.log(client)
 
     const personalChannel = selectedChat.channel_id
     const sub = client
