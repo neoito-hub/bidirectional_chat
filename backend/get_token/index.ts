@@ -17,7 +17,7 @@ const handler = async (event: { req: Request; res: Response }): Promise<void> =>
     return
   }
 
-  const secretKey: string = 'your_secret_key'
+  const secretKey: string = process.env.BB_BIDIRECTIONAL_CHAT_CENTRIFUGO_SECRET_KEY
   const userID: string = 'user123'
   const expiresIn: number = 7200 // 2 hour
 
