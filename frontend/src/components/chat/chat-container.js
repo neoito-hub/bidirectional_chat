@@ -12,7 +12,6 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useRef, useEffect } from 'react'
 import { Centrifuge } from 'centrifuge'
-import { shield } from '@appblocks/js-sdk'
 import ChatBubble from './chat-bubble'
 import apiHelper from '../common/apiHelper'
 import Send from '../../assets/img/icons/send-icon.svg'
@@ -31,8 +30,6 @@ const ChatContainer = ({ removeSelection, selectedChat }) => {
   const [message, setMessage] = useState('')
   const [history, setHistory] = useState([])
   const [loading, setLoading] = useState(false)
-  // const [centrifuge, setCentrifuge] = useState(null)
-  const [centrifugeClient, setCentrifugeClient] = useState(null)
 
   const autoGrowTxtarea = (e) => {
     chatTxtarea.current.style.height = '24px'
@@ -69,6 +66,7 @@ const ChatContainer = ({ removeSelection, selectedChat }) => {
           res?.messages?.map((item) => ({
             role: item?.is_owner ? 'owner' : 'user',
             content: item?.content,
+            created_at: item?.created_at,
           })),
         )
         scrollToBottom()
@@ -104,10 +102,7 @@ const ChatContainer = ({ removeSelection, selectedChat }) => {
       debug: true,
       token,
     })
-    setCentrifugeClient(client)
     client.connect()
-
-    console.log(client)
 
     const personalChannel = selectedChat.channel_id
     const sub = client
@@ -120,69 +115,10 @@ const ChatContainer = ({ removeSelection, selectedChat }) => {
 
     // Clean up the subscription on component unmount
     return () => {
-      // sub.unsubscribe()
-      // client.disconnect()
+      sub.unsubscribe()
+      client.disconnect()
     }
   }, [])
-
-  // useEffect(() => {
-  //   const initCentrifuge = async () => {
-  //     const token = await shield.tokenStore.getToken()
-
-  //     const centrifugeInstance = new Centrifuge(process.env.WS_ENDPOINT, {
-  //       debug: true,
-  //       token,
-  //     })
-
-  //     centrifugeInstance.on('connect', (ctx) => {
-  //       console.log('Centrifuge connected', ctx)
-  //     })
-
-  //     centrifugeInstance.on('disconnect', (ctx) => {
-  //       console.log('Centrifuge disconnected', ctx)
-  //     })
-
-  //     centrifugeInstance.connect()
-  //     setCentrifuge(centrifugeInstance)
-  //   }
-
-  //   initCentrifuge()
-
-  //   return () => {
-  //     if (centrifuge) {
-  //       centrifuge.disconnect()
-  //       setCentrifuge(null)
-  //     }
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   if (!selectedChat || !centrifuge) {
-  //     return
-  //   }
-
-  //   const personalChannel = selectedChat.channel_id
-  //   const sub = centrifuge.newSubscription(personalChannel)
-
-  //   sub.on('publication', () => {
-  //     fetchHistory()
-  //   })
-
-  //   sub.on('subscribed', (ctx) => {
-  //     console.log('Subscribed to channel', personalChannel)
-  //   })
-
-  //   sub.on('error', (ctx) => {
-  //     console.error('Subscription error:', ctx)
-  //   })
-
-  //   sub.subscribe()
-
-  //   return () => {
-  //     sub.unsubscribe()
-  //     sub.removeAllListeners()
-  //   }
-  // }, [selectedChat, centrifuge])
 
   const sendMessageFilterDataStructure = () => ({
     message,
@@ -234,7 +170,7 @@ const ChatContainer = ({ removeSelection, selectedChat }) => {
             {history?.map((msg, idx) => (
               <ChatBubble
                 key={idx}
-                message={msg.content}
+                message={msg}
                 isUser={msg.role === 'user'}
               />
             ))}
