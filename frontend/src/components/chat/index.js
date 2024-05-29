@@ -38,6 +38,9 @@ const Chat = () => {
             setShowChat(false)
           }}
           selectedChat={selectedChat}
+          updateChatList={() =>
+            !_.isEqual(selectedChat, chats[0]) && setFlag((flg) => !flg)
+          }
         />
       )}
       {isModalOpen && (

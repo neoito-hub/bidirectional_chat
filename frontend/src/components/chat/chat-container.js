@@ -22,7 +22,7 @@ const chatHistoryUrl = 'chat_history'
 const sendMessageUrl = 'send_message'
 const getTokenUrl = 'get_token'
 
-const ChatContainer = ({ removeSelection, selectedChat }) => {
+const ChatContainer = ({ removeSelection, selectedChat, updateChatList }) => {
   const { userDetails } = useContextStore()
   const mainScrollArea = useRef()
   const chatTxtarea = useRef()
@@ -110,6 +110,7 @@ const ChatContainer = ({ removeSelection, selectedChat }) => {
       .on('publication', async (ctx) => {
         console.log('received publication from a channel', ctx.data)
         await fetchHistory()
+        updateChatList()
       })
     sub.subscribe()
 
