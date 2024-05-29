@@ -56,7 +56,6 @@ const authenticateUser = async req => {
   try {
     // Get user details using shield
     const userDetails = await shield.getUser(req);
-    console.log("userDetails", userDetails);
     return {
       id: userDetails.user_id
     };

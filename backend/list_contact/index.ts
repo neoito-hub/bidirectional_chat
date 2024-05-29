@@ -29,6 +29,7 @@ const handler = async (event: { req: Request; res: Response }): Promise<void> =>
        c.name  
       FROM contact as c
       WHERE c.name ILIKE ${searchValue}
+      AND c.id != ${userInfo?.id}
   ) as subquery;
   `
 
@@ -37,6 +38,7 @@ const handler = async (event: { req: Request; res: Response }): Promise<void> =>
       *
       FROM contact as c
       WHERE c.name ILIKE ${searchValue}
+      AND c.id != ${userInfo?.id}
       LIMIT ${limit} 
       OFFSET ${offset};`
 

@@ -61,7 +61,6 @@ const authenticateUser = async (req: Request): Promise<{ id: string } | { error:
   try {
     // Get user details using shield
     const userDetails: UserDetails = await shield.getUser(req)
-    console.log("userDetails",userDetails)
     return { id: userDetails.user_id }
   } catch (e) {
     console.log(e)
