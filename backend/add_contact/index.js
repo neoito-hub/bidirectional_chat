@@ -34,40 +34,20 @@ const handler = async event => {
       });
       return;
     }
-    if (reqBody.phone_number && reqBody.phone_number !== '') {
-      const existingContact = await prisma.contact.findUnique({
-        where: {
-          id: reqBody.id
-        }
-      });
-      if (existingContact) {
-        sendResponse(res, 409, {
-          success: false,
-          msg: 'shield user already exists'
-        });
-        return;
-      }
-    }
-    const existingEmail = await prisma.contact.findUnique({
+    const existingContact = await prisma.contact.findFirst({
       where: {
-        email: reqBody.email
+        OR: [{
+          id: reqBody.id
+        }, {
+          email: reqBody.email
+        }]
       }
     });
-
-    // const existingPhoneNumber = await prisma.contact.findUnique({
-    //   where: {
-    //     email: reqBody.phone_number,
-    //   },
-    // })
-    // if (existingPhoneNumber) {
-    //   sendResponse(res, 409, { success: false, msg: 'shield user already exists' })
-    //   return
-    // }
-
-    if (existingEmail) {
-      sendResponse(res, 409, {
-        success: false,
-        msg: 'shield user already exists'
+    if (existingContact) {
+      sendResponse(res, 200, {
+        success: true,
+        msg: 'shield user already exists',
+        data: existingContact
       });
       return;
     }

@@ -11,7 +11,7 @@ model contact {
   id                   String                   @id @unique @default(uuid())
   name                 String?
   country_code         String
-  phone_number         String                   
+  phone_number         String?                   
   channel_id           String?
   email                String?                  @unique
   address              String?

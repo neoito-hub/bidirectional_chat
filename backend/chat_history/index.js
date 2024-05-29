@@ -48,9 +48,11 @@ const handler = async event => {
     }
   });
   return sendResponse(res, 200, {
-    message: 'Chat list retrived successfully',
-    data: messages,
-    count: messagesCount[0].count
+    data: {
+      message: 'Chat list retrived successfully',
+      messages,
+      count: messagesCount[0].count
+    }
   });
 };
 export default handler;

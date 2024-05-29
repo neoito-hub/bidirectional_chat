@@ -21,7 +21,7 @@ const handler = async event => {
     });
     return;
   }
-  const secretKey = 'your_secret_key';
+  const secretKey = process.env.BB_BIDIRECTIONAL_CHAT_CENTRIFUGO_SECRET_KEY;
   const userID = 'user123';
   const expiresIn = 7200; // 2 hour
 
@@ -30,9 +30,12 @@ const handler = async event => {
   }, secretKey, {
     expiresIn
   });
-  return sendResponse(res, 200, {
-    token: token,
-    message: 'Token created successfully'
-  });
+  const responseData = {
+    data: {
+      token: token,
+      message: 'Token created successfully'
+    }
+  };
+  return sendResponse(res, 200, responseData);
 };
 export default handler;

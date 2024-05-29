@@ -32,6 +32,7 @@ const handler = async event => {
        c.name  
       FROM contact as c
       WHERE c.name ILIKE ${searchValue}
+      AND c.id != ${userInfo?.id}
   ) as subquery;
   `;
     const contactsInfo = await prisma.$queryRaw`
@@ -39,6 +40,7 @@ const handler = async event => {
       *
       FROM contact as c
       WHERE c.name ILIKE ${searchValue}
+      AND c.id != ${userInfo?.id}
       LIMIT ${limit} 
       OFFSET ${offset};`;
     let result = {
