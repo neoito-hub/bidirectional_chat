@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("BB_BIDIRECTIONAL_CHAT_DATABASE_URL")
+}
+
+model contact {
+  id                   String                   @id @unique @default(uuid())
+  name                 String?
+  country_code         String
+  phone_number         String?                   
+  channel_id           String?
+  email                String?                  @unique
+  address              String?
+  registered_user      Boolean                  @default(false)
+  status               String?
+  created_at           DateTime?                @default(now())
+  updated_at           DateTime?                @updatedAt
+  Participants         participants[]
+  IndividualChatDetail individual_chat_detail[]
+}
+
+model chat {
+  id                   String                   @id @unique @default(uuid())
+  chat_name            String?
+  status               String?
+  chat_uid             String?
+  latest_message       String?
+  channel_id           String?
+  created_at           DateTime?                @default(now())
+  updated_at           DateTime?                @updatedAt
+  IndividualChatDetail individual_chat_detail[]
+  Participants         participants[]
+}
+
+model participants {
+  id         String    @id @unique @default(uuid())
+  contact_id String
+  chat_id    String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  chat       chat?     @relation(fields: [chat_id], references: [id])
+  contact    contact?  @relation(fields: [contact_id], references: [id])
+}
+
+model individual_chat_detail {
+  id          String    @id @unique @default(uuid())
+  chat_id     String
+  content     String
+  sender_id   String
+  type        String
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @updatedAt
+  chat        chat?     @relation(fields: [chat_id], references: [id])
+  contact     contact?  @relation(fields: [sender_id], references: [id])
+}
