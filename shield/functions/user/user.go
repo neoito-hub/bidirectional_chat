@@ -93,7 +93,7 @@ func Signup(c *gin.Context) {
 	newUser.Email = strings.TrimSpace(strings.ToLower(c.PostForm("email")))
 	newUser.Password = strings.TrimSpace(c.PostForm("password"))
 	newUser.UserName = strings.TrimSpace(c.PostForm("username"))
-	newUser.FullName = strings.TrimSpace(c.PostForm("fullname"))
+	newUser.FullName = strings.TrimSpace(c.PostForm("username"))
 	newUser.Address1 = strings.TrimSpace(c.PostForm("address1"))
 	newUser.Address2 = strings.TrimSpace(c.PostForm("address2"))
 	newUser.Phone = strings.TrimSpace(c.PostForm("phone"))
