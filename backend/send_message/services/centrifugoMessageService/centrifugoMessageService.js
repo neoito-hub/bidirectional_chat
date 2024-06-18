@@ -62,6 +62,8 @@ export class CentrifugoMessageSender {
           }
         });
         let chatData = {
+          chat_id: newChat?.id,
+          channel_id: newChat?.channel_id,
           message: newIndividualChat?.content
         };
         await publishMessage([newChat?.channel_id], chatData);
@@ -83,14 +85,16 @@ export class CentrifugoMessageSender {
             type: '1' //centrifugo - 1, meta - 2
           }
         });
-        let chatData = {
-          message: newIndividualChat?.content
-        };
         const chatDetails = await prisma.chat.findUnique({
           where: {
             id: existingChat[0]?.chat_id
           }
         });
+        let chatData = {
+          chat_id: chatDetails?.id,
+          channel_id: chatDetails?.channel_id,
+          message: newIndividualChat?.content
+        };
         await publishMessage([chatDetails?.channel_id], chatData);
         return 'message sent successfully';
       }
